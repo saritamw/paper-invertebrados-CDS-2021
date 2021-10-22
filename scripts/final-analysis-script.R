@@ -3,11 +3,11 @@
 
 
 ### 1. Cargar paquetes y funciones
-source("scripts/00_packages.R")
+source("scripts/1-paquetes.R")
 
 ### 2. Procesar los datos ambientales (solo correr esto una vez,
 # ### ya que  los datos procesados se guardan en un csv nuevo) 
-source("scripts/01_dataclean.R")
+source("scripts/2-procesar-datos")
 
 ### 3. Cargar datos
 pest_data <- read_csv("data/processed/datos de insectos y temperatura final.csv")
