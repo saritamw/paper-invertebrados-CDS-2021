@@ -1,31 +1,23 @@
-################ Insect Data CDRS #######################
 
-##### List of packages used for analysis
-### Package scripts
+################ Datos Invertebrados CDS #######################
+
+##### Lista de scripts de  paquetes en R usados para el análisis
 
 
-library(tidyverse) #For data cleaning and graphs
-library(lme4) #For modeling
-#citation("lme4")
-library(car) #For model analysis
-library(readr) #For reading csv files
+library(tidyverse) # limpieza de datos y gráficos
+library(lme4) # modelaje
+#citation("lme4") #para citar el paquete
+library(car) # para el análisis con modelos
+library(readr) # para abrir archivos csv
 library("lubridate")
 library(plotrix) #Standard error
 
 
-#For CA 
-library(ade4)
-library(vegan)
-library(gclus)
-library(ape)
-library(missMDA)
-library(FactoMineR)
-
- # for plots
+ # para los plots
 library("ggpubr")
 #citation("ggpubr")
 
-### Custom ggplot theme:
+### Tema personalizado de ggplot :
 simple_theme <- list(
   theme_classic() +
     theme(plot.margin = unit(c(.7,.7,.7,.7), "cm"),
