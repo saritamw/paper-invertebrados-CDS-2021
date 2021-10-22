@@ -12,7 +12,7 @@ source("scripts/2-procesar-datos")
 ### 3. Cargar datos
 pest_data <- read_csv("data/processed/datos de insectos y temperatura final.csv")
 
-# Ajustar variables como factores
+### Ajustar variables como factores
 pest_data <- pest_data %>% mutate_at(vars(periodo_monitoreo,
                                           monitoreo,
                                           tipo_trampa,
@@ -23,9 +23,12 @@ pest_data <- pest_data %>% mutate_at(vars(periodo_monitoreo,
                                           familia,
                                           especie), list(factor))
 
+###### Comenzamos con el análisis de las 3 hipótesis propuestas para el paper
+
 ### HIPÓTESIS 1 ###
 
-# Is there a significant association of insect abundance with temperature or RH in the herbarium?
+# Hay una asociación significativa entre la abundancia de invertebrados
+#### y la temperatura o humedad en el herbario? 
 
 ### Primero testeamos el efecto de temperatura y humedad máxima en la abundancia de invertebrados
 full_model_max <- glmer(abundancia_trampa ~ scale(max_humi) + scale(max_temp)
@@ -114,9 +117,7 @@ mtext(side=2, "Number of Invertebrates\n(log scaled)", line=2.8, cex=1, font=2)
 dev.off()
 
 ## Ahora modelar solo con especies de posibles plagas
-
 pest_data_onlypests = filter(pest_data, pest == "potential") # solo posibles plagas
-
 
 pest_full_model_max <- glmer(abundancia_trampa ~ scale(max_humi) + scale(max_temp)
                         + scale(dias_monitoreo)
@@ -127,7 +128,6 @@ pest_full_model_max <- glmer(abundancia_trampa ~ scale(max_humi) + scale(max_tem
 summary(full_model_max)
 
 # eliminar variable de temperatura para testear el efecto de temperatura en plagas
-
 pest_reduced_model_temp <- glmer(abundancia_trampa ~ 
                               scale(max_humi) + 
                                 scale(dias_monitoreo) +
@@ -135,6 +135,7 @@ pest_reduced_model_temp <- glmer(abundancia_trampa ~
                               (1|trampa_ID_unico),
                             family=poisson,
                             data=pest_data_onlypests)
+
 # Comparar modelos con LRT
 anova(pest_full_model_max, pest_reduced_model_temp)
 
@@ -282,7 +283,7 @@ anova(full_model_days, reduced_model_days_hum)
 
 #####################
 
-### OBJETIVO 3: Cuánta correlación hay entre el clima externo con el interno dentro del herbario? 
+### HIPÓTESIS NÚMERO 3: Cuánta correlación hay entre el clima externo con el interno dentro del herbario? 
 ######## A esta correlación le afecta el número de des-humidificadores o sistemas de aire  prendidos en el herbario?
 
 clim_dat <- read_csv("data/raw/climate_puerto-ayora.csv")
@@ -336,7 +337,7 @@ res_hum <- cor.test(all_env_data$humidity, all_env_data$herbarium_humi_avg,
                 method = "pearson")
 res_hum
 
-### resumen de número total de invertebrados por especie 
+### resumen del número total de invertebrados por especie 
 pest_data_summ <- group_by(pest_data, especie) %>% 
   summarize(total_bugs = sum(abundancia_trampa, na.rm=T))
 
@@ -344,5 +345,3 @@ pest_data_summ <- group_by(pest_data_onlypests, especie) %>%
   summarize(total_bugs = sum(abundancia_trampa, na.rm=T))
 
 write.csv(pest_data_summ, file="data/processed/summary_pest_table.csv")
-
-?write.csv
