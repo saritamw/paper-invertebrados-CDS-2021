@@ -7,7 +7,7 @@ source("scripts/1-paquetes.R")
 
 ### 2. Procesar los datos ambientales (solo correr esto una vez,
 # ### ya que  los datos procesados se guardan en un csv nuevo) 
-source("scripts/2-procesar-datos")
+source("scripts/2-procesar-datos.R")
 
 ### 3. Cargar datos
 pest_data <- read_csv("data/processed/datos de insectos y temperatura final.csv")
