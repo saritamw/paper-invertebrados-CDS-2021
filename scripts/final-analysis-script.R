@@ -104,7 +104,7 @@ dev.off()
 #quartz(w=5,h=4)
 pdf(file="results/scatterplot-all-inv-maxrelhum.pdf",width=5,height=4)
 par(mar=c(4,5,2,2))
-plot(data=pest_data_onlypests, jitter(abundancia_trampa) ~ (max_humi), log="y",
+plot(data=pest_data, jitter(abundancia_trampa) ~ (max_humi), log="y",
      xaxt="n", yaxt="n", ylab="", xlab="", pch=16, cex=1.5,
      col=t_col("black",0.5))
 #añadir ejes 
