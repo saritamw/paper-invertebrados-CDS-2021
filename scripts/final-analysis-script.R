@@ -151,7 +151,8 @@ pest_reduced_model_humid <- glmer(abundancia_trampa ~
 
 anova(pest_full_model_max, pest_reduced_model_humid)
 
-
+dev.off()
+print(plot(1))
 #### Scatterplot de temperatura y humedad relativa
 plot(data=pest_data, max_humi ~ max_temp)
 
